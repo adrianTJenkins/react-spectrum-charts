@@ -218,7 +218,7 @@ export function getElement(
  */
 export const getAllMarkElements = (
 	target: unknown,
-	source: MarkElement[],
+	sources: MarkElement[],
 	elements: MappedElement[] = [],
 	name: string = ''
 ): MappedElement[] => {
@@ -233,7 +233,7 @@ export const getAllMarkElements = (
 		return elements;
 	}
 	// if the type matches, we found our element
-	if (target.type === source) {
+	if ((sources.some (source => target.type === source))) {
 		return [...elements, { name, element: target as ChartElement | RscElement }];
 	}
 
@@ -245,7 +245,7 @@ export const getAllMarkElements = (
 	const desiredElements: MappedElement[] = [];
 	for (const child of toArray(target.props.children)) {
 		const childName = getElementName(child, elementCounts);
-		desiredElements.push(...getAllMarkElements(child, source, elements, [name, childName].filter(Boolean).join('')));
+		desiredElements.push(...getAllMarkElements(child, sources, elements, [name, childName].filter(Boolean).join('')));
 	}
 	// no element matches found, give up all hope...
 	return [...elements, ...desiredElements];
