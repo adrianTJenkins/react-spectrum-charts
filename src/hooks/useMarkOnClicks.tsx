@@ -17,9 +17,9 @@ import { Chart } from '../Chart';
 import { Bar } from '../components/Bar';
 import { Donut } from 'rc/components';
 import { Scatter } from '../components/Scatter';
-import { BarElement, ChartChildElement, Datum } from '../types';
+import { BarElement, ChartChildElement, Datum, DonutElement, ScatterElement } from '../types';
 
-type MappedMarkElement = { name: string; element: BarElement };
+type MappedMarkElement = { name: string; element: BarElement | DonutElement | ScatterElement };
 
 export type MarkDetail = {
 	markName?: string;
