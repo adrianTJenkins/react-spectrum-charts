@@ -136,48 +136,48 @@ const dialog = (item: Datum): ReactNode => {
 	);
 };
 
-const Basic = bindWithProps(ScatterStory);
-Basic.args = {
+const defaultProps: ScatterProps = {
 	dimension: 'speedNormal',
 	metric: 'handlingNormal',
+	onClick: undefined,
+}
+
+const Basic = bindWithProps(ScatterStory);
+Basic.args = {
+	...defaultProps
 };
 
 const Color = bindWithProps(ScatterStory);
 Color.args = {
+	...defaultProps,
 	color: 'weightClass',
-	dimension: 'speedNormal',
-	metric: 'handlingNormal',
 };
 
 const ColorScaleType = bindWithProps(ScatterStory);
 ColorScaleType.args = {
+	...defaultProps,
 	color: 'weight',
 	colorScaleType: 'linear',
-	dimension: 'speedNormal',
-	metric: 'handlingNormal',
 };
 
 const LineType = bindWithProps(ScatterStory);
 LineType.args = {
+	...defaultProps,
 	lineType: 'weightClass',
 	lineWidth: { value: 2 },
 	opacity: { value: 0.5 },
-	dimension: 'speedNormal',
-	metric: 'handlingNormal',
 };
 
 const Opacity = bindWithProps(ScatterStory);
 Opacity.args = {
+	...defaultProps,
 	opacity: 'weightClass',
-	dimension: 'speedNormal',
-	metric: 'handlingNormal',
 };
 
 const Popover = bindWithProps(ScatterStory);
 Popover.args = {
+	...defaultProps,
 	color: 'weightClass',
-	dimension: 'speedNormal',
-	metric: 'handlingNormal',
 	children: [
 		<ChartTooltip key="0">{dialog}</ChartTooltip>,
 		<ChartPopover key="1" width="auto">
@@ -188,17 +188,21 @@ Popover.args = {
 
 const Size = bindWithProps(ScatterStory);
 Size.args = {
+	...defaultProps,
 	size: 'weight',
-	dimension: 'speedNormal',
-	metric: 'handlingNormal',
 };
 
 const Tooltip = bindWithProps(ScatterStory);
 Tooltip.args = {
+	...defaultProps,
 	color: 'weightClass',
-	dimension: 'speedNormal',
-	metric: 'handlingNormal',
 	children: <ChartTooltip>{dialog}</ChartTooltip>,
 };
 
-export { Basic, Color, ColorScaleType, LineType, Opacity, Popover, Size, Tooltip };
+const OnClick = bindWithProps(ScatterStory);
+OnClick.args = {
+	dimension: 'speedNormal',
+	metric: 'handlingNormal',
+}
+
+export { Basic, Color, ColorScaleType, LineType, Opacity, Popover, Size, Tooltip, OnClick };
