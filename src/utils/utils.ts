@@ -55,6 +55,7 @@ import {
 	TrendlineElement,
 } from '../types';
 
+type MarkElement = typeof Bar | typeof Donut | typeof Scatter;
 type MappedElement = { name: string; element: ChartElement | RscElement };
 type ElementCounts = {
 	area: number;
@@ -217,12 +218,7 @@ export function getElement(
  */
 export const getAllMarkElements = (
 	target: unknown,
-	source:
-		| typeof Area
-		| typeof Bar
-		| typeof Donut
-		| typeof Line
-		| typeof Scatter,
+	source: MarkElement[],
 	elements: MappedElement[] = [],
 	name: string = ''
 ): MappedElement[] => {

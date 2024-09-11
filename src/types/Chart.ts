@@ -182,6 +182,8 @@ export interface DonutProps extends MarkProps {
 	/** Determines if the center metric should be displayed as a percent. if true, data should only be two data points, which sum to 1
 	 * Also, if true, will display the first datapoint as a percent */
 	isBoolean?: boolean;
+	/** callback that will be run when a donut item is selected */
+	onClick?: (datum: Datum) => void;
 }
 
 export interface DonutSummaryProps {
@@ -436,6 +438,8 @@ export interface ScatterProps extends Omit<MarkProps, 'color'> {
 	 * point fill and stroke opacity
 	 * uses a key in the data that will map to the opacity scale or a opacity value
 	 */
+	/** callback that will be run when a scatter item is selected */
+	onClick?: (datum: Datum) => void;
 	opacity?: OpacityFacet;
 	/**
 	 * point size

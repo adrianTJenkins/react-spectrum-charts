@@ -15,6 +15,8 @@ import { getAllMarkElements } from '@utils';
 
 import { Chart } from '../Chart';
 import { Bar } from '../components/Bar';
+import { Donut } from 'rc/components';
+import { Scatter } from '../components/Scatter';
 import { BarElement, ChartChildElement, Datum } from '../types';
 
 type MappedMarkElement = { name: string; element: BarElement };
@@ -26,7 +28,7 @@ export type MarkDetail = {
 
 export default function useMarkOnClicks(children: ChartChildElement[]): MarkDetail[] {
     const markElements = useMemo(
-		() => getAllMarkElements(createElement(Chart, { data: [] }, children), Bar, []) as MappedMarkElement[],
+		() => getAllMarkElements(createElement(Chart, { data: [] }, children), [Bar, Donut, Scatter], []) as MappedMarkElement[],
 		[children]
 	);
 	return useMemo(
