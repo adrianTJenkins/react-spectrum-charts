@@ -67,13 +67,16 @@ import {
 	OpacityFacet,
 	ProductionRuleTests,
 	ScaleType,
+	ScatterSpecProps,
 	SymbolSizeFacet,
 } from '../../types';
+
+type MarkElementProps = BarSpecProps | DonutSpecProps | ScatterSpecProps;
 
 /**
  * If a popover or onClick prop exists on the mark, then set the cursor to a pointer.
  */
-export function getCursor(children: MarkChildElement[], props?: BarSpecProps): ScaledValueRef<Cursor> | undefined {
+export function getCursor(children: MarkChildElement[], props?: MarkElementProps): ScaledValueRef<Cursor> | undefined {
 	if ((props?.onClick !== undefined) || hasPopover(children)) {
 		return { value: 'pointer' };
 	}
@@ -83,7 +86,7 @@ export function getCursor(children: MarkChildElement[], props?: BarSpecProps): S
  * If there aren't any tooltips, popovers, or onClick props on the mark, then set interactive to false.
  * This prevents the mark from interfering with other interactive marks.
  */
-export function getInteractive(children: MarkChildElement[], props?: BarSpecProps): boolean {
+export function getInteractive(children: MarkChildElement[], props?: MarkElementProps): boolean {
 	// skip annotations
 	return (props?.onClick !== undefined) || hasInteractiveChildren(children);
 }

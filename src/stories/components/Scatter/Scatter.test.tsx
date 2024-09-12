@@ -25,7 +25,8 @@ import {
 } from '@test-utils';
 import userEvent from '@testing-library/user-event';
 
-import { Basic, Color, ColorScaleType, LineType, Opacity, Popover, Size, Tooltip } from './Scatter.story';
+import { Basic, Color, ColorScaleType, LineType, Opacity, Popover, Size, Tooltip, OnClick } from './Scatter.story';
+import { characterData } from '@stories/data/marioKartData';
 
 const colors = spectrumColors.light;
 
@@ -102,6 +103,60 @@ describe('Scatter', () => {
 		expect(points[0]).toHaveAttribute('fill-opacity', '1');
 		expect(points[6]).toHaveAttribute('fill-opacity', '0.75');
 		expect(points[11]).toHaveAttribute('fill-opacity', '0.5');
+	});
+
+	test('should call onClick callback when selecting a scatter item', async () => {
+		const onClick = jest.fn();
+		render(<OnClick {...OnClick.args} onClick={onClick} />);
+		const chart = await findChart();
+		const scatterItems = await findAllMarksByGroupName(chart, 'scatter0');
+		await clickNthElement(scatterItems, 0);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(characterData[0]));
+
+		await clickNthElement(scatterItems, 1);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(characterData[1]));
+
+		await clickNthElement(scatterItems, 2);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(characterData[2]));
+
+		await clickNthElement(scatterItems, 3);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(characterData[3]));
+
+		await clickNthElement(scatterItems, 4);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(characterData[4]));
+
+		await clickNthElement(scatterItems, 5);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(characterData[5]));
+
+		await clickNthElement(scatterItems, 6);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(characterData[6]));
+
+		await clickNthElement(scatterItems, 7);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(characterData[7]));
+
+		await clickNthElement(scatterItems, 8);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(characterData[8]));
+
+		await clickNthElement(scatterItems, 9);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(characterData[9]));
+
+		await clickNthElement(scatterItems, 10);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(characterData[10]));
+
+		await clickNthElement(scatterItems, 11);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(characterData[11]));
+
+		await clickNthElement(scatterItems, 12);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(characterData[12]));
+
+		await clickNthElement(scatterItems, 13);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(characterData[13]));
+
+		await clickNthElement(scatterItems, 14);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(characterData[14]));
+
+		await clickNthElement(scatterItems, 15);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(characterData[15]));
 	});
 
 	describe('Popover', () => {

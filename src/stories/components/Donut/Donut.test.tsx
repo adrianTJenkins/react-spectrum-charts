@@ -9,10 +9,11 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-import { findAllMarksByGroupName, findChart, render } from '@test-utils';
+import { clickNthElement, findAllMarksByGroupName, findChart, render } from '@test-utils';
 import { Donut } from 'rc/components/Donut';
 
-import { Basic } from './Donut.story';
+import { Basic, OnClick } from './Donut.story';
+import { basicDonutData } from './data';
 
 describe('Donut', () => {
 	// Donut is not a real React component. This is test just provides test coverage for sonarqube
@@ -28,5 +29,33 @@ describe('Donut', () => {
 		// donut data has 7 segments
 		const bars = await findAllMarksByGroupName(chart, 'donut0');
 		expect(bars.length).toEqual(7);
+	});
+
+	test('should call onClick callback when selecting a donut item', async () => {
+		const onClick = jest.fn();
+		render(<OnClick {...OnClick.args} onClick={onClick} />);
+		const chart = await findChart();
+		const donutItems = await findAllMarksByGroupName(chart, 'donut0');
+
+		await clickNthElement(donutItems, 0);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(basicDonutData[0]));
+
+		await clickNthElement(donutItems, 1);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(basicDonutData[1]));
+
+		await clickNthElement(donutItems, 2);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(basicDonutData[2]));
+
+		await clickNthElement(donutItems, 3);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(basicDonutData[3]));
+
+		await clickNthElement(donutItems, 4);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(basicDonutData[4]));
+
+		await clickNthElement(donutItems, 5);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(basicDonutData[5]));
+
+		await clickNthElement(donutItems, 6);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining(basicDonutData[6]));
 	});
 });

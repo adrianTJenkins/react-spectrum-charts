@@ -98,23 +98,26 @@ const interactiveChildren = [
 	</ChartPopover>,
 ];
 
-const Basic = bindWithProps(DonutStory);
-Basic.args = {
+const defaultProps: DonutProps = {
 	metric: 'count',
 	color: 'browser',
+	onClick: undefined,
+};
+
+const Basic = bindWithProps(DonutStory);
+Basic.args = {
+	...defaultProps
 };
 
 const WithPopover = bindWithProps(DonutStory);
 WithPopover.args = {
-	metric: 'count',
-	color: 'browser',
+	...defaultProps,
 	children: interactiveChildren,
 };
 
 const WithLegend = bindWithProps(DonutLegendStory);
 WithLegend.args = {
-	metric: 'count',
-	color: 'browser',
+	...defaultProps
 };
 
 const BooleanDonut = bindWithProps(BooleanStory);
@@ -126,10 +129,15 @@ BooleanDonut.args = {
 
 const Supreme = bindWithProps(DonutLegendStory);
 Supreme.args = {
-	metric: 'count',
-	color: 'browser',
+	...defaultProps,
 	holeRatio: 0.8,
 	children: [...interactiveChildren, <DonutSummary label="Visitors" key={0} />],
 };
 
-export { Basic, BooleanDonut, Supreme, WithLegend, WithPopover };
+const OnClick = bindWithProps(DonutStory);
+OnClick.args = {
+	metric: 'count',
+	color: 'browser',
+}
+
+export { Basic, BooleanDonut, Supreme, WithLegend, WithPopover, OnClick };

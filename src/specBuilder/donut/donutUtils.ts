@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 import { DONUT_RADIUS, FILTERED_TABLE, MARK_ID, SELECTED_ITEM } from '@constants';
-import { getColorProductionRule, getCursor, getMarkOpacity, getTooltip } from '@specBuilder/marks/markUtils';
+import { getColorProductionRule, getCursor, getInteractive, getMarkOpacity, getTooltip } from '@specBuilder/marks/markUtils';
 import { getColorValue } from '@specBuilder/specUtils';
 import { ArcMark } from 'vega';
 
@@ -22,6 +22,7 @@ export const getArcMark = (props: DonutSpecProps): ArcMark => {
 		type: 'arc',
 		name,
 		from: { data: FILTERED_TABLE },
+		interactive: getInteractive(children, props),
 		encode: {
 			enter: {
 				fill: getColorProductionRule(color, colorScheme),
@@ -37,7 +38,7 @@ export const getArcMark = (props: DonutSpecProps): ArcMark => {
 				innerRadius: { signal: `${holeRatio} * ${DONUT_RADIUS}` },
 				outerRadius: { signal: DONUT_RADIUS },
 				opacity: getMarkOpacity(props),
-				cursor: getCursor(children),
+				cursor: getCursor(children, props),
 				strokeWidth: [{ test: `${SELECTED_ITEM} === datum.${MARK_ID}`, value: 2 }, { value: 0 }],
 			},
 		},

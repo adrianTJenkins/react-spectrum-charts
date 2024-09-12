@@ -13,6 +13,8 @@ import { DEFAULT_OPACITY_RULE, FILTERED_TABLE, HIGHLIGHT_CONTRAST_RATIO, MARK_ID
 import { addTooltipMarkOpacityRules } from '@specBuilder/chartTooltip/chartTooltipUtils';
 import {
 	getColorProductionRule,
+	getCursor,
+	getInteractive,
 	getLineWidthProductionRule,
 	getOpacityProductionRule,
 	getPointsForVoronoi,
@@ -70,6 +72,7 @@ export const getScatterMark = (props: ScatterSpecProps): SymbolMark => {
 		from: {
 			data: FILTERED_TABLE,
 		},
+		interactive: getInteractive(props.children, props),
 		encode: {
 			enter: {
 				/**
@@ -87,6 +90,7 @@ export const getScatterMark = (props: ScatterSpecProps): SymbolMark => {
 				stroke: getColorProductionRule(color, colorScheme, colorScaleType),
 			},
 			update: {
+				cursor: getCursor(props.children, props),
 				opacity: getOpacity(props),
 				x: getXProductionRule(dimensionScaleType, dimension),
 				y: { scale: 'yLinear', field: metric },
