@@ -158,6 +158,8 @@ export interface ChartHandle {
 export interface AreaProps extends MarkProps {
 	/** Data field that the metric is trended against (x-axis for horizontal orientation) */
 	dimension?: string;
+	/** callback that will be run when an area item is selected */
+	onClick?: (datum: Datum) => void;
 	/** Optional field used to set the stack order of the area (higher order = stacked on top/right) */
 	order?: string;
 	/** Optional field used to set the area opacity */
@@ -396,6 +398,8 @@ export interface LineProps extends Omit<MarkProps, 'color'> {
 	dimension?: string;
 	/** Line type or key in the data that is used as the line type facet */
 	lineType?: LineTypeFacet;
+	/** callback that will be run when a line item is selected */
+	onClick?: (datum: Datum) => void;
 	/** Opacity or key in the data that is used as the opacity facet */
 	opacity?: OpacityFacet;
 	/** Sets the chart area padding, this is a ratio from 0 to 1 for categorical scales (point) and a pixel value for continuous scales (time, linear) */
