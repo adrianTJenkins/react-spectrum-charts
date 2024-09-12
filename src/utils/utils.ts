@@ -55,7 +55,7 @@ import {
 	TrendlineElement,
 } from '../types';
 
-type MarkElement = typeof Bar | typeof Donut | typeof Scatter;
+type MarkElement = typeof Area | typeof Bar | typeof Donut | typeof Line | typeof Scatter;
 type MappedElement = { name: string; element: ChartElement | RscElement };
 type ElementCounts = {
 	area: number;
