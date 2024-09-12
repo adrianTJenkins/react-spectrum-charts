@@ -20,7 +20,7 @@ import { action } from '@storybook/addon-actions';
 import { StoryFn } from '@storybook/react';
 import { bindWithProps } from '@test-utils';
 
-import { ChartProps } from '../../../types';
+import { ChartProps, LineProps } from '../../../types';
 
 export default {
 	title: 'RSC/Line',
@@ -152,9 +152,14 @@ const LineWithVisiblePointsStory: StoryFn<typeof Line> = (args): ReactElement =>
 	);
 };
 
+const defaultProps: LineProps = {
+	color: 'series',
+	onClick: undefined,
+}
+
 const Basic = bindWithProps(BasicLineStory);
 Basic.args = {
-	color: 'series',
+	...defaultProps,
 	dimension: 'datetime',
 	metric: 'value',
 	name: 'line0',
@@ -163,7 +168,7 @@ Basic.args = {
 
 const LineWithAxisAndLegend = bindWithProps(LineStory);
 LineWithAxisAndLegend.args = {
-	color: 'series',
+	...defaultProps,
 	dimension: 'datetime',
 	metric: 'users',
 	name: 'line0',
@@ -172,7 +177,7 @@ LineWithAxisAndLegend.args = {
 
 const LineWithUTCDatetimeFormat = bindWithProps(LineStoryWithUTCData);
 LineWithUTCDatetimeFormat.args = {
-	color: 'series',
+	...defaultProps,
 	dimension: 'datetime',
 	metric: 'users',
 	name: 'line0',
@@ -181,32 +186,32 @@ LineWithUTCDatetimeFormat.args = {
 
 const LineType = bindWithProps(BasicLineStory);
 LineType.args = {
-	color: 'series',
+	...defaultProps,
 	lineType: 'series',
 };
 
 const Opacity = bindWithProps(BasicLineStory);
 Opacity.args = {
-	color: 'series',
+	...defaultProps,
 	opacity: { value: 0.6 },
 };
 
 const TrendScale = bindWithProps(ComboStory);
 TrendScale.args = {
-	color: 'series',
+	...defaultProps,
 	scaleType: 'point',
 };
 
 const LinearTrendScale = bindWithProps(LinearStory);
 LinearTrendScale.args = {
-	color: 'series',
+	...defaultProps,
 	dimension: 'point',
 	scaleType: 'linear',
 };
 
 const HistoricalCompare = bindWithProps(HistoricalCompareStory);
 HistoricalCompare.args = {
-	color: 'series',
+	...defaultProps,
 	dimension: 'datetime',
 	lineType: 'period',
 	metric: 'users',
@@ -215,7 +220,7 @@ HistoricalCompare.args = {
 
 const Tooltip = bindWithProps(BasicLineStory);
 Tooltip.args = {
-	color: 'series',
+	...defaultProps,
 	children: (
 		<ChartTooltip>
 			{(datum) => (
@@ -237,6 +242,16 @@ ItemTooltip.args = {
 
 const WithStaticPoints = bindWithProps(LineWithVisiblePointsStory);
 WithStaticPoints.args = {
+	...defaultProps,
+	dimension: 'datetime',
+	metric: 'value',
+	name: 'line0',
+	scaleType: 'time',
+	staticPoint: 'staticPoint',
+};
+
+const OnClick = bindWithProps(LineWithVisiblePointsStory);
+OnClick.args = {
 	color: 'series',
 	dimension: 'datetime',
 	metric: 'value',
@@ -294,4 +309,5 @@ export {
 	TrendScale,
 	WithStaticPoints,
 	WithStaticPointsAndDialogs,
+	OnClick,
 };
