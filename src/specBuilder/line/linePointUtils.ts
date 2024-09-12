@@ -12,7 +12,9 @@
 import { BACKGROUND_COLOR, DEFAULT_SYMBOL_SIZE, DEFAULT_SYMBOL_STROKE_WIDTH, MARK_ID, SELECTED_ITEM } from '@constants';
 import {
 	getColorProductionRule,
+	getCursor,
 	getHighlightOpacityValue,
+	getInteractive,
 	getOpacityProductionRule,
 	getXProductionRule,
 	hasPopover,
@@ -31,27 +33,21 @@ const selectedTest = `${SELECTED_ITEM} && ${SELECTED_ITEM} === datum.${MARK_ID}`
  * @param lineMarkProps
  * @returns SymbolMark
  */
-export const getLineStaticPoint = ({
-	name,
-	metric,
-	color,
-	colorScheme,
-	scaleType,
-	dimension,
-}: LineSpecProps): SymbolMark => {
+export const getLineStaticPoint = (props: LineSpecProps): SymbolMark => {
 	return {
-		name: `${name}_staticPoints`,
+		name: `${props.name}_staticPoints`,
 		type: 'symbol',
-		from: { data: `${name}_staticPointData` },
-		interactive: false,
+		from: { data: `${props.name}_staticPointData` },
+		interactive: getInteractive(props.children, props),
 		encode: {
 			enter: {
-				y: { scale: 'yLinear', field: metric },
-				fill: getColorProductionRule(color, colorScheme),
+				y: { scale: 'yLinear', field: props.metric },
+				fill: getColorProductionRule(props.color, props.colorScheme),
 				stroke: { signal: BACKGROUND_COLOR },
 			},
 			update: {
-				x: getXProductionRule(scaleType, dimension),
+				x: getXProductionRule(props.scaleType, props.dimension),
+				cursor: getCursor(props.children, props)
 			},
 		},
 	};

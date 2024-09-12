@@ -61,6 +61,7 @@ import {
 	ColorScheme,
 	DonutSpecProps,
 	DualFacet,
+	LineSpecProps,
 	LineTypeFacet,
 	LineWidthFacet,
 	MarkChildElement,
@@ -71,7 +72,7 @@ import {
 	SymbolSizeFacet,
 } from '../../types';
 
-type MarkElementProps = BarSpecProps | DonutSpecProps | ScatterSpecProps;
+type MarkElementProps = BarSpecProps | DonutSpecProps | LineSpecProps | ScatterSpecProps;
 
 /**
  * If a popover or onClick prop exists on the mark, then set the cursor to a pointer.
