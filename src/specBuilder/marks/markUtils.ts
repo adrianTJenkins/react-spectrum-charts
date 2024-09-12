@@ -55,6 +55,7 @@ import {
 } from 'vega';
 
 import {
+	AreaSpecProps,
 	BarSpecProps,
 	ChartTooltipProps,
 	ColorFacet,
@@ -72,7 +73,7 @@ import {
 	SymbolSizeFacet,
 } from '../../types';
 
-type MarkElementProps = BarSpecProps | DonutSpecProps | LineSpecProps | ScatterSpecProps;
+type MarkElementProps = AreaSpecProps | BarSpecProps | DonutSpecProps | LineSpecProps | ScatterSpecProps;
 
 /**
  * If a popover or onClick prop exists on the mark, then set the cursor to a pointer.

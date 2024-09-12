@@ -28,7 +28,7 @@ import {
 	isHighlightedByDimension,
 	isHighlightedByGroup,
 } from '@specBuilder/chartTooltip/chartTooltipUtils';
-import { getTooltipProps, hasPopover } from '@specBuilder/marks/markUtils';
+import { getCursor, getInteractive, getTooltipProps, hasPopover } from '@specBuilder/marks/markUtils';
 import {
 	addHighlightedSeriesSignalEvents,
 	getControlledHoveredGroupSignal,
@@ -233,22 +233,23 @@ export const addAreaMarks = produce<Mark[], [AreaSpecProps]>((marks, props) => {
 /**
  * returns a transparent point that gets used by the popover to anchor to
  */
-const getAnchorPointMark = ({ children, name, dimension, metric, scaleType }: AreaSpecProps): Mark[] => {
-	if (!children.length) return [];
+const getAnchorPointMark = (props: AreaSpecProps): Mark[] => {
+	if (!props.children.length) return [];
 	return [
 		{
-			name: `${name}_anchorPoint`,
+			name: `${props.name}_anchorPoint`,
 			type: 'symbol',
-			from: { data: `${name}_highlightedData` },
-			interactive: false,
+			from: { data: `${props.name}_highlightedData` },
+			interactive: getInteractive(props.children, props),
 			encode: {
 				enter: {
-					y: { scale: 'yLinear', field: `${metric}1` },
+					y: { scale: 'yLinear', field: `${props.metric}1` },
 					stroke: { value: 'transparent' },
 					fill: { value: 'transparent' },
 				},
 				update: {
-					x: getX(scaleType, dimension),
+					x: getX(props.scaleType, props.dimension),
+					cursor: getCursor(props.children, props)
 				},
 			},
 		},
